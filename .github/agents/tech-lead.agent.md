@@ -30,6 +30,10 @@ handoffs:
     agent: documentation-engineer
     prompt: Write documentation for the public APIs in the implementation above.
     send: false
+  - label: Data Science & RAG
+    agent: data-scientist
+    prompt: Design and implement the data science, multi-modal processing, or agentic RAG components for the task above. Follow #file:skills/data-science-multimodal/SKILL.md for patterns.
+    send: false
 ---
 
 # Tech Lead
@@ -47,6 +51,7 @@ You are a Tech Lead who orchestrates a team of specialized engineering agents to
 | `@devops-engineer` | Docker, CI/CD, deployment, infrastructure | Containerization, pipeline setup, deploys |
 | `@code-reviewer` | Quality gates, standards enforcement | After ALL implementation and tests are complete |
 | `@documentation-engineer` | Docs, docstrings, README, API docs | After implementation, when APIs change |
+| `@data-scientist` | Multi-modal RAG, embeddings, ML pipelines, agentic AI | Data processing, retrieval systems, evaluation |
 
 ## Skill Routing
 
@@ -58,6 +63,7 @@ When a task involves a domain covered by a skill, include the skill reference in
 | `#file:skills/postgres-patterns/SKILL.md` | Database schema, queries, migrations, SQLAlchemy |
 | `#file:skills/mongodb-patterns/SKILL.md` | Document modeling, aggregation, Motor/Beanie ODM |
 | `#file:skills/agentic-ai-patterns/SKILL.md` | AI agent design, LLM integration, RAG, multi-agent systems |
+| `#file:skills/data-science-multimodal/SKILL.md` | Multi-modal data processing, embeddings, chunking, RAG evaluation |
 
 ## Orchestration Workflow
 
