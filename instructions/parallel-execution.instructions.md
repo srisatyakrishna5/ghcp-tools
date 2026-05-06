@@ -1,9 +1,11 @@
 ---
-description: "Parallel execution strategy for multi-agent workflows — enforces automatic parallelization of independent tasks"
+description: "Parallel execution strategy for multi-agent workflows — MANDATORY for the tech-lead orchestrator"
 applyTo: "**"
 ---
 
 # Parallel Execution Strategy
+
+> **Enforcement level: MANDATORY.** The tech-lead agent MUST follow these rules when orchestrating sub-agents. Serializing independent tasks is a workflow error that must be corrected.
 
 ## Core Principle
 

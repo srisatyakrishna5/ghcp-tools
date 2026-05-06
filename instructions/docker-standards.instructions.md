@@ -1,9 +1,11 @@
 ---
-description: "Docker and containerization standards for multi-stage builds"
+description: "Docker and containerization standards for multi-stage builds — MANDATORY for all container work"
 applyTo: "**/Dockerfile,**/Dockerfile.*,**/docker-compose*.yml,**/docker-compose*.yaml"
 ---
 
 # Docker Standards
+
+> **Enforcement level: MANDATORY.** These rules are not suggestions. Every agent that creates or modifies Dockerfiles and docker-compose configs MUST apply these standards. Violations must be caught in review and fixed before delivery.
 
 ## Multi-Stage Build Pattern
 

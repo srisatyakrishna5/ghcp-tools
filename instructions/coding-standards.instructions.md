@@ -1,9 +1,11 @@
 ---
-description: "Shared coding standards enforced across all engineering agents"
+description: "Shared coding standards enforced across all engineering agents — MANDATORY for all code generation and review"
 applyTo: "**/*.ts,**/*.tsx,**/*.js,**/*.jsx,**/*.py,**/*.cs,**/*.java,**/*.go,**/*.rs"
 ---
 
 # Coding Standards
+
+> **Enforcement level: MANDATORY.** These rules are not suggestions. Every agent that writes, modifies, or reviews code MUST apply these standards. Violations must be caught in code review and fixed before delivery.
 
 ## SOLID Principles
 

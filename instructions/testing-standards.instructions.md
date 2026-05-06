@@ -1,9 +1,11 @@
 ---
-description: "Testing standards enforced by the test engineer agent"
+description: "Testing standards enforced by all agents that write or review tests — MANDATORY for all test code"
 applyTo: "**/*.test.*,**/*.spec.*,**/test_*,**/*_test.*,**/tests/**"
 ---
 
 # Testing Standards
+
+> **Enforcement level: MANDATORY.** These rules are not suggestions. Every agent that writes, modifies, or reviews tests MUST apply these standards. Tests that violate these rules MUST be flagged in review.
 
 ## Coverage Target
 
