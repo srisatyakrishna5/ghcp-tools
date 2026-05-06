@@ -37,13 +37,41 @@ Break into ordered steps:
 6. Review (code reviewer validates everything)
 ```
 
-### 3. Execute Sequentially
-- Architect first for design decisions
-- Developer implements the design
-- Test Engineer writes tests (target 80%+ coverage)
-- Documentation Engineer updates docs and docstrings
-- DevOps Engineer creates/updates Docker and CI/CD configs
-- Code Reviewer performs final quality check
+### 3. Execute with Maximum Parallelism
+
+Identify independent tasks and run them in parallel using subagents. Only serialize tasks that have true data dependencies.
+
+#### Dependency Rules
+- **Must be sequential**: Architecture → Implementation → Code Review (each depends on prior output)
+- **Can run in parallel after implementation**:
+  - Test Engineer (writes tests from the implementation)
+  - Documentation Engineer (writes docs from the implementation)
+  - DevOps Engineer (creates Docker/CI config from the implementation)
+- **Can run in parallel from the start** (if no architecture phase needed):
+  - Multiple Developer agents working on independent modules/files
+  - DevOps Engineer (if only infra changes, no code dependency)
+
+#### Parallel Execution Protocol
+1. After each phase completes, identify all tasks whose dependencies are now satisfied
+2. Launch ALL independent tasks simultaneously as parallel subagents — do NOT serialize them
+3. Wait for all parallel tasks to complete before moving to the next dependent phase
+4. The Code Reviewer runs last, after all parallel work is merged
+
+```
+Example — New Feature:
+  Phase 1 (serial):     Architect designs the solution
+  Phase 2 (serial):     Developer implements the code
+  Phase 3 (parallel):   Test Engineer + Documentation Engineer + DevOps Engineer
+  Phase 4 (serial):     Code Reviewer validates everything
+```
+
+```
+Example — Multi-Module Feature:
+  Phase 1 (serial):     Architect defines module contracts
+  Phase 2 (parallel):   Developer A (module 1) + Developer B (module 2)
+  Phase 3 (parallel):   Test Engineer (all modules) + Documentation Engineer + DevOps Engineer
+  Phase 4 (serial):     Code Reviewer validates everything
+```
 
 ### 4. Quality Gate
 Before declaring work complete, verify:
@@ -79,3 +107,6 @@ The Tech Lead decides:
 - Always ensure tests and documentation are included — never skip them
 - Delegate to specialists; do not do their job yourself
 - If the user asks for only one aspect (e.g., "just write tests"), engage only that specialist
+- **ALWAYS parallelize independent work** — never serialize tasks that have no data dependency on each other
+- When multiple files or modules can be worked on independently, spin up parallel agents for each
+- Default to parallel execution; only serialize when one task explicitly requires the output of another
