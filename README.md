@@ -65,9 +65,61 @@ Persona-driven specialists that approach problems from a specific engineering ro
 | **Documentation Engineer** | Knowledge Capture | Docstrings, README, API docs, architecture docs |
 | **Prompt Engineer** | AI Optimizer | Deterministic prompts, token reduction, output format control |
 
+## Installation: Hosting in Your Repository
+
+GitHub Copilot automatically discovers agents, instructions, and skills when they are placed inside the `.github/` folder at the root of your code repository. No configuration, no plugin installs — just the correct folder structure.
+
+### Required Folder Structure
+
+```
+your-repo/
+├── .github/
+│   ├── agents/
+│   │   ├── architect.agent.md
+│   │   ├── code-reviewer.agent.md
+│   │   ├── developer.agent.md
+│   │   ├── devops-engineer.agent.md
+│   │   ├── documentation-engineer.agent.md
+│   │   ├── prompt-engineer.agent.md
+│   │   ├── tech-lead.agent.md
+│   │   └── test-engineer.agent.md
+│   ├── instructions/
+│   │   ├── coding-standards.instructions.md
+│   │   ├── docker-standards.instructions.md
+│   │   ├── parallel-execution.instructions.md
+│   │   └── testing-standards.instructions.md
+│   └── skills/
+│       ├── agentic-ai-patterns/
+│       │   └── SKILL.md
+│       ├── fastapi-patterns/
+│       │   └── SKILL.md
+│       ├── mongodb-patterns/
+│       │   └── SKILL.md
+│       └── postgres-patterns/
+│           └── SKILL.md
+├── src/
+└── ...
+```
+
+### How to Set Up
+
+1. Create a `.github/` folder at the root of your repository (if it doesn't already exist).
+2. Copy the `agents/` folder into `.github/agents/`. Each file must have the `.agent.md` extension. Copilot will detect them and make them available as invocable agents in chat (e.g., `@developer`, `@tech-lead`).
+3. Copy the `instructions/` folder into `.github/instructions/`. Each file must have the `.instructions.md` extension. Copilot loads these automatically based on the `applyTo` glob pattern in the file's YAML frontmatter — no manual invocation needed.
+4. Copy the `skills/` folder into `.github/skills/`. Each skill lives in its own subfolder and the file must be named `SKILL.md`. Copilot loads them on demand when it detects relevant technology context matching the skill's description or `applyTo` pattern.
+5. Commit and push. Every developer who clones the repository automatically gets these customizations — no local setup required.
+
+### Key Points
+
+- The `.github/` folder must be at the repository root — not nested inside `src/` or any other directory.
+- Instructions with an `applyTo` pattern (e.g., `**/*.py`) activate only when Copilot is working on files matching that pattern.
+- Agents become available in GitHub Copilot Chat and can be invoked by their filename prefix (without the `.agent.md` suffix).
+- Changes to these files take effect immediately after saving — no restart or rebuild required.
+- This works across all team members — one setup benefits everyone who uses the repository.
+
 ## Getting Started
 
-1. **Clone or copy** this repository into your project's `.github/` directory (or reference via VS Code workspace settings)
+1. **Fork or clone** this repository and copy the `.github/` folder into your project root
 2. **Instructions activate automatically** based on `applyTo` file patterns — no manual invocation needed
 3. **Invoke agents** by referencing them in Copilot Chat (e.g., `@tech-lead implement a user service`)
 4. **Skills load on demand** when Copilot detects relevant technology context
