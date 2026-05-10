@@ -1,10 +1,11 @@
 ---
 name: fastapi-patterns
-description: "FastAPI application patterns including dependency injection, Pydantic models, middleware, authentication, and project structure. WHEN: FastAPI routes, Pydantic models, dependency injection, middleware, FastAPI project structure, async endpoints, background tasks, WebSocket endpoints, FastAPI testing."
-applyTo: "**/*.py"
+description: "Reference guide for advanced FastAPI application patterns including dependency injection, Pydantic models, middleware, authentication, and project structure. Prefer fastapi-runtime for routine work."
 ---
 
 # FastAPI Patterns
+
+> Reference skill. Prefer `#file:skills/fastapi-runtime/SKILL.md` for routine work. Load this full reference only when you need deeper patterns, larger examples, or advanced framework features.
 
 ## Project Structure
 

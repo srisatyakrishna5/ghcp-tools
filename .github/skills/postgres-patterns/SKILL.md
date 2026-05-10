@@ -1,10 +1,11 @@
 ---
 name: postgres-patterns
-description: "PostgreSQL database patterns including schema design, query optimization, indexing strategies, migrations, connection pooling, and SQLAlchemy/asyncpg usage. WHEN: PostgreSQL schema, database migrations, SQL queries, indexing, connection pooling, SQLAlchemy models, asyncpg, database optimization, query performance."
-applyTo: "**/*.py,**/*.sql"
+description: "Reference guide for PostgreSQL database patterns including schema design, query optimization, indexing strategies, migrations, connection pooling, and SQLAlchemy or asyncpg usage. Prefer postgres-runtime for routine work."
 ---
 
 # PostgreSQL Patterns
+
+> Reference skill. Prefer `#file:skills/postgres-runtime/SKILL.md` for routine work. Load this full reference only when you need detailed schema, indexing, migration, or ORM guidance.
 
 ## Schema Design Principles
 

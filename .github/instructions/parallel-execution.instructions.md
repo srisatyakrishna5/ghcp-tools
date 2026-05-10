@@ -37,11 +37,14 @@ applyTo: "**"
 
 5. **Subagent parallelism** — When orchestrating with subagents, launch independent subagents in the same turn. Do not serialize subagent calls that have no data dependency.
 
+6. **Every parallel phase needs a rejoin plan** — Name the integration owner, expected outputs, and merge condition before launching parallel branches.
+
 ## Anti-Patterns (DO NOT do these)
 
 - Running Test Engineer after Documentation Engineer "just because it's next in the list"
 - Implementing module B only after module A is done, when they share no interfaces
 - Writing all tests sequentially when test files are independent
+- Launching parallel branches without a named integration owner or merge condition
 - Asking the user "should I proceed with X?" when X is clearly the next independent task
 
 ## Decision Heuristic

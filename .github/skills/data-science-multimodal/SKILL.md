@@ -1,10 +1,11 @@
 ---
 name: data-science-multimodal
-description: "Data science patterns for multi-modal agentic RAG systems including chunking strategies, embedding pipelines, multi-modal processing, vector search optimization, evaluation frameworks, and production ML patterns. WHEN: multi-modal RAG, agentic RAG, document processing, image+text retrieval, embedding pipeline, chunking strategy, vector search, RAGAS evaluation, hybrid search, re-ranking, multi-hop retrieval, knowledge graph RAG, ColPali, vision embeddings, audio transcription pipeline, PDF processing, table extraction."
-applyTo: "**/*.py,**/*.ts,**/*.ipynb"
+description: "Reference guide for multi-modal RAG and data science patterns including chunking strategies, embedding pipelines, retrieval optimization, evaluation, and production ML patterns. Prefer data-science-multimodal-runtime for routine work."
 ---
 
 # Data Science: Multi-Modal Agentic RAG Patterns
+
+> Reference skill. Prefer `#file:skills/data-science-multimodal-runtime/SKILL.md` for routine work. Load this full reference only for advanced ingestion, hybrid retrieval, evaluation frameworks, or detailed code examples.
 
 > Production patterns for building agentic AI systems that process and retrieve across text, images, audio, video, and structured data.
 

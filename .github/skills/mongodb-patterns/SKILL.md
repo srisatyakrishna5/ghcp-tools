@@ -1,10 +1,11 @@
 ---
 name: mongodb-patterns
-description: "MongoDB patterns including schema design, aggregation pipelines, indexing, Motor async driver, document modeling, and ODM usage with Beanie/MongoEngine. WHEN: MongoDB schema, document modeling, aggregation pipeline, MongoDB indexes, Motor async, Beanie ODM, MongoEngine, MongoDB queries, embedded vs referenced, MongoDB performance."
-applyTo: "**/*.py,**/*.ts,**/*.js"
+description: "Reference guide for MongoDB patterns including schema design, aggregation pipelines, indexing, Motor async driver, document modeling, and ODM usage. Prefer mongodb-runtime for routine work."
 ---
 
 # MongoDB Patterns
+
+> Reference skill. Prefer `#file:skills/mongodb-runtime/SKILL.md` for routine work. Load this full reference only when you need deeper modeling guidance, advanced pipelines, or extended examples.
 
 ## Document Modeling Principles
 
