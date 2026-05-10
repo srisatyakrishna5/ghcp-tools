@@ -28,7 +28,8 @@ Use this skill for routine multi-modal retrieval work. Load the full `data-scien
 * Source metadata survives ingestion
 * Retrieval path is measurable
 * Embedding choice matches modality
-* Latency and cost trade-offs are stated
+* Retrieval quality floor is defined before adding agentic loops or re-ranking (e.g., recall@k ≥ 0.80, MRR ≥ 0.70)
+* Latency and cost targets are stated with numeric bounds (e.g., p95 retrieval latency ≤ Xs, cost-per-query ≤ $Y)
 * Evaluation plan exists before major expansion
 
 ## Escalate to Full Reference When

@@ -25,6 +25,12 @@ Load a full reference skill only if the runtime skill is insufficient.
 - Add regression coverage when practical.
 - Do not expand into unrelated refactors.
 
+## Team Handoff Mode
+
+When invoked by the Tech Lead in team mode, read TEAM_STATE and MISSION from context. Consume MISSION.PRIOR_OUTPUTS for any prior reproduction attempts or known symptoms before starting. If the task is blocked, return TEAM_HANDOFF with `STATUS: blocked` and explicit blockers.
+
+When invoked directly by the user, return a brief response unless they ask for team-handoff format.
+
 ## Response Format
 
 Return:
@@ -36,3 +42,16 @@ Return:
 - Verification: `passed`, `failed`, or `not_run`
 
 Keep the response concise unless the user asks for detailed diagnostics.
+
+Team handoff summary format:
+
+```text
+TEAM_HANDOFF:
+STATUS: done | partial | blocked
+ROOT_CAUSE:
+CHANGED_FILES:
+VALIDATION:
+BLOCKERS:
+OPEN_QUESTIONS:
+NEXT_OWNER:
+```

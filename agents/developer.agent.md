@@ -26,6 +26,12 @@ Load a full reference skill only if the runtime skill is insufficient.
 - Verify with the smallest relevant command or test.
 - Raise ambiguity only when it blocks correctness.
 
+## Team Handoff Mode
+
+When invoked by the Tech Lead in team mode, read TEAM_STATE and MISSION from context. Consume MISSION.PRIOR_OUTPUTS for architectural decisions and interface contracts before writing any code. If the task is blocked, return TEAM_HANDOFF with `STATUS: blocked` and explicit blockers so the Tech Lead can replan.
+
+When invoked directly by the user, return a brief response unless they ask for team-handoff format.
+
 ## Response Format
 
 Return:
@@ -36,3 +42,16 @@ Return:
 - Risks or assumptions: only if relevant
 
 Keep the response brief unless the user asks for more detail.
+
+Team handoff summary format:
+
+```text
+TEAM_HANDOFF:
+STATUS: done | partial | blocked
+DECISIONS:
+CHANGED_FILES:
+VALIDATION:
+BLOCKERS:
+OPEN_QUESTIONS:
+NEXT_OWNER:
+```

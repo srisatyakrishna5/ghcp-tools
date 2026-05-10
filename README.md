@@ -45,13 +45,7 @@ A curated collection of GitHub Copilot customization files that transform generi
 │       ├── fastapi-runtime/                  # Small runtime skill card
 │       ├── mongodb-runtime/                  # Small runtime skill card
 │       ├── postgres-runtime/                 # Small runtime skill card
-│       ├── agentic-ai-patterns/              # Reference router for advanced Agentic AI skills
-│       ├── agentic-ai-foundations/           # Core agent architecture and planning reference
-│       ├── agentic-ai-orchestration/         # Multi-agent workflow reference
-│       ├── agentic-ai-protocols/             # MCP, A2A, and oversight reference
-│       ├── agentic-ai-guardrails/            # Safety and control reference
-│       ├── agentic-ai-memory-rag/            # Memory, RAG, and resilience reference
-│       ├── agentic-ai-evaluation/            # Evaluation and structured-output reference
+│       ├── agentic-ai-patterns/              # Compact advanced Agentic AI reference
 │       ├── data-science-multimodal/          # Full reference manual
 │       ├── fastapi-patterns/                 # Full reference manual
 │       ├── mongodb-patterns/                 # Full reference manual
@@ -93,13 +87,7 @@ Reference skills:
 * **FastAPI Patterns**: Deeper framework patterns and advanced examples.
 * **PostgreSQL Patterns**: Detailed indexing, migrations, pooling, and ORM guidance.
 * **MongoDB Patterns**: Advanced modeling and aggregation guidance.
-* **Agentic AI Reference Router**: Lightweight entry point that directs GHCP to the narrowest advanced Agentic AI reference.
-* **Agentic AI Foundations**: Core architecture, reflection, tool use, planning, and foundational collaboration.
-* **Agentic AI Orchestration**: Prompt chaining, routing, parallelization, supervisor, debate, and handoff patterns.
-* **Agentic AI Protocols**: MCP, A2A, approval gates, and checkpoint-resume patterns.
-* **Agentic AI Guardrails**: Input and output validation, tool safety, and boundary enforcement.
-* **Agentic AI Memory and RAG**: Memory systems, retrieval architecture, chunking, and resilience patterns.
-* **Agentic AI Evaluation**: Observability, evaluation frameworks, function calling, and structured outputs.
+* **Agentic AI Patterns**: Compact advanced reference for architecture, orchestration, guardrails, protocol integration, memory, and evaluation.
 * **Data Science Multi-Modal**: Advanced ingestion, hybrid retrieval, and evaluation frameworks.
 
 ### Agents
@@ -163,18 +151,6 @@ your-repo/
 │       │   └── SKILL.md
 │       ├── agentic-ai-patterns/
 │       │   └── SKILL.md
-│       ├── agentic-ai-foundations/
-│       │   └── SKILL.md
-│       ├── agentic-ai-orchestration/
-│       │   └── SKILL.md
-│       ├── agentic-ai-protocols/
-│       │   └── SKILL.md
-│       ├── agentic-ai-guardrails/
-│       │   └── SKILL.md
-│       ├── agentic-ai-memory-rag/
-│       │   └── SKILL.md
-│       ├── agentic-ai-evaluation/
-│       │   └── SKILL.md
 │       ├── fastapi-patterns/
 │       │   └── SKILL.md
 │       ├── postgres-patterns/
@@ -208,7 +184,7 @@ your-repo/
 The repository is optimized around fast default behavior:
 
 * Runtime skills load before reference skills
-* Large Agentic AI guidance is split into narrow advanced references instead of one monolithic manual
+* Agentic AI guidance is constrained to one runtime card and one compact advanced reference
 * Specialists return brief summaries by default
 * The Tech Lead uses task-size gating and can switch between fast mode and team mode
 * Parallelism is used only when dependency-free work justifies it

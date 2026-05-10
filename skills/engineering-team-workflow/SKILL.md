@@ -22,6 +22,7 @@ Use this skill when a task should run like a software engineering team instead o
 * Test engineer owns regression coverage and testability feedback
 * Documentation engineer owns public-facing behavior and API documentation updates
 * Code reviewer owns the independent quality gate
+* Security engineer joins when the change touches authentication, authorization, external inputs, secrets, dependencies, or a high-stakes domain
 * DevOps engineer joins only when delivery artifacts or deployment concerns are in scope
 
 ## Shared State Contract
@@ -54,9 +55,10 @@ INTEGRATION_OWNER:
 
 ## Collaboration Rules
 
-* Every handoff should include the current shared state, not only the local task request
+* Every handoff carries two parts: the full current TEAM_STATE and a MISSION block specific to the receiving specialist. Specialists must not be invoked with incomplete state.
+* MISSION.PRIOR_OUTPUTS carries the structured outputs of completed phases — specialists consume these to avoid re-deriving decisions already made upstream
 * Parallel branches must produce outputs that can be merged by the named integration owner
-* Reviewer findings must become actionable work items for the owning agent, not passive commentary
+* Reviewer findings must become actionable TEAM_STATE.REVIEW_FINDINGS entries with an owning agent, not passive commentary
 * Do not skip documentation or validation when their trigger conditions are met
 * Do not close the task while blockers, unresolved review findings, or missing validations remain hidden
 
@@ -64,7 +66,11 @@ INTEGRATION_OWNER:
 
 * Scope is complete
 * Changed files are accounted for
-* Validation status is explicit
+* Validation status is explicit (tests pass, coverage targets met)
 * Review status is explicit
+* Security review status is explicit when security engineer was in scope; no unresolved Critical or High findings without risk-owner sign-off
 * Documentation impact is explicit
+* SLO targets (p95 latency, error rate, throughput) are confirmed met or explicitly accepted as out of scope
+* Rollback plan is documented when the change is not trivially reversible
+* Observability confirmed: logs, metrics, and alerts cover the changed behavior or gaps are explicitly accepted
 * Remaining risks and follow-ups are explicit

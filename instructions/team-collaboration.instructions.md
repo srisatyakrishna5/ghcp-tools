@@ -17,10 +17,11 @@ Use these rules when a task needs more than one specialist or the user asks for 
 
 * Maintain one shared team state for the task
 * Update decisions, blockers, changed files, validation status, and next owner after each branch
-* Do not treat a subagent result as final until it is reconciled with the shared team state
-* When a downstream agent finds an upstream issue, route it back to the owning agent with explicit fix instructions
+* Every specialist receives the full current TEAM_STATE plus a MISSION block. The Tech Lead owns building both before each dispatch — specialists must not guess missing context
+* MISSION.PRIOR_OUTPUTS carries structured outputs from completed phases so downstream specialists consume proven facts, not re-inferred assumptions
+* When a downstream agent finds an upstream issue, record it in TEAM_STATE.REVIEW_FINDINGS and route it back to the owning agent with a concrete MISSION
 * Name an integration owner before any parallel phase begins
-* Close the task only after the integration gate passes
+* Close the task only after the integration gate and production gate both pass
 
 ## Shared Team State
 
@@ -47,6 +48,17 @@ The task is not complete until these conditions are true:
 * Review findings are resolved, accepted, or explicitly deferred
 * Documentation is updated when public behavior or interfaces changed
 * Remaining risks and follow-up work are explicit
+
+## Production Gate
+
+For team mode deliveries the integration gate also requires:
+
+* SLO targets (p95 latency, error rate, throughput) are confirmed met or explicitly accepted as out of scope with justification
+* Security review passed: no unresolved Critical or High findings without risk-owner sign-off recorded in team state
+* Rollback plan documented when the change is not trivially reversible (feature flag, migration rollback, or re-deploy path)
+* Observability confirmed: structured logs, metrics, and alerts cover the changed behavior; gaps are explicitly accepted
+* Supply chain validated: dependencies pinned, no known CVEs in direct dependencies
+* For high-stakes domains: domain-specific controls (kill switches, circuit breakers, audit records, rate limits) are confirmed operational
 
 ## Collaboration Anti-Patterns
 

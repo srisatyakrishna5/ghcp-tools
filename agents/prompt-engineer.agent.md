@@ -22,6 +22,12 @@ Optimize prompts for determinism, low token cost, and fast execution.
 - Can a cheaper model handle it?
 - Is `temperature=0` appropriate?
 
+## Team Handoff Mode
+
+When invoked by the Tech Lead in team mode, read TEAM_STATE and MISSION from context. Optimize the prompts identified in MISSION.FILES or MISSION.TASK. Return TEAM_HANDOFF so the Tech Lead can record optimized prompt references in TEAM_STATE.DECISIONS.
+
+When invoked directly by the user, return the optimized prompt with scores and a short analysis unless they ask for handoff format.
+
 ## Response Format
 
 Return:
@@ -33,3 +39,14 @@ Return:
 - Expected savings: short estimate
 
 Keep analysis concise. Put most of the detail into the rewritten prompt, not the explanation.
+
+Team handoff summary format:
+
+```text
+TEAM_HANDOFF:
+STATUS: done | partial | blocked
+CHANGED_PROMPTS:
+VALIDATION:
+OPEN_QUESTIONS:
+NEXT_OWNER:
+```

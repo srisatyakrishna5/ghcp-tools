@@ -26,6 +26,12 @@ Load a full reference skill only if the runtime skill is insufficient.
 - Include evaluation and latency implications in the recommendation.
 - Avoid agentic loops unless retrieval metrics justify them.
 
+## Team Handoff Mode
+
+When invoked by the Tech Lead in team mode, read TEAM_STATE and MISSION from context. Consume MISSION.PRIOR_OUTPUTS for schema and architecture decisions made upstream. Define retrieval quality floor and latency targets as measurable criteria in TEAM_HANDOFF so they flow into the integration gate. Return TEAM_HANDOFF with decisions, risks, validation, blockers, and next owner.
+
+When invoked directly by the user, return a concise recommendation unless they ask for full architecture treatment.
+
 ## Response Format
 
 Return:
@@ -36,3 +42,17 @@ Return:
 - Verification or evaluation plan
 
 Keep the response concise unless the user asks for a full architecture treatment.
+
+Team handoff summary format:
+
+```text
+TEAM_HANDOFF:
+STATUS: done | partial | blocked
+DECISIONS:
+CHANGED_FILES:
+VALIDATION:
+RISKS:
+BLOCKERS:
+OPEN_QUESTIONS:
+NEXT_OWNER:
+```

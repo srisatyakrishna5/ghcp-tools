@@ -26,6 +26,12 @@ Load a full reference skill only if the runtime skill is insufficient.
 - Keep public interfaces small and module boundaries explicit.
 - Call out over-engineering, latency risks, and operational risks early.
 
+## Team Handoff Mode
+
+When invoked by the Tech Lead in team mode, read TEAM_STATE and MISSION from context. Add the architectural decision record reference to TEAM_STATE.DECISIONS. Return TEAM_HANDOFF so downstream specialists (developer, test-engineer, security-engineer) consume the decisions via MISSION.PRIOR_OUTPUTS.
+
+When invoked directly by the user, return the design and explain trade-offs without a handoff summary unless asked.
+
 ## Response Format
 
 Return a brief design with these sections:
@@ -40,4 +46,19 @@ Return a brief design with these sections:
 ### Risks
 ```
 
-Keep the response under 200 words unless the user asks for detail. If no architecture phase is needed, say `No architecture phase needed` and explain why in one sentence.
+Keep the response concise for simple and medium tasks. For complex, multi-service, or high-risk systems (financial, safety-critical, regulated, or multi-team scope), produce a full ADR-format design without length constraint. If no architecture phase is needed, say `No architecture phase needed` and explain why in one sentence.
+
+Team handoff summary format:
+
+```text
+TEAM_HANDOFF:
+STATUS: done | partial | blocked
+DECISIONS:
+DEPENDENCIES:
+RISKS:
+BLOCKERS:
+CHANGED_FILES:
+VALIDATION:
+OPEN_QUESTIONS:
+NEXT_OWNER:
+```

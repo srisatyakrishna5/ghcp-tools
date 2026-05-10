@@ -80,7 +80,7 @@ class ModalRouter:
         if suffix in self.EXTENSION_MAP:
             return self.EXTENSION_MAP[suffix]
 
-        return Modality.TEXT  # Default fallback
+        return Modality.TEXT
 ```
 
 ### PDF Processing with Structure Preservation
@@ -220,7 +220,7 @@ class ImageProcessor(DocumentProcessor):
         ]
 
     def _contains_text(self, description: str) -> bool:
-        """Heuristic: does the image contain meaningful text?"""
+        """Return true when the description indicates meaningful visible text."""
         text_indicators = ["text", "label", "title", "caption", "heading", "written"]
         return any(ind in description.lower() for ind in text_indicators)
 
@@ -449,7 +449,6 @@ class SelfRAGAgent:
                 # Not grounded — retry with different query
                 continue
 
-        # Fallback: answer with best available context + caveat
         return await self._generate_with_caveat(question, results)
 
     async def _should_retrieve(self, question: str) -> RetrievalDecision:

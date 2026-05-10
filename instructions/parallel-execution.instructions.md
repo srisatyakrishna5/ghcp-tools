@@ -6,6 +6,7 @@ applyTo: "**"
 # Parallel Execution Strategy
 
 > **Enforcement level: MANDATORY.** The tech-lead agent MUST follow these rules when orchestrating sub-agents. Serializing independent tasks is a workflow error that must be corrected.
+> **Scope:** These rules govern the orchestrating agent (Tech Lead) only. Specialist agents must not launch independent sub-orchestrations or parallelize work outside of a Tech Lead-directed plan.
 
 ## Core Principle
 
@@ -47,7 +48,7 @@ applyTo: "**"
 - Launching parallel branches without a named integration owner or merge condition
 - Asking the user "should I proceed with X?" when X is clearly the next independent task
 
-## Decision Heuristic
+## Decision Rule
 
 ```
 For each pending task, ask:
