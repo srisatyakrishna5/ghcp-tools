@@ -1,224 +1,283 @@
 ---
-title: GHCP Instructions, Skills & Agents
-description: Performance-optimized GitHub Copilot customization assets with runtime skills, reference skills, team collaboration workflows, and specialist agents
+title: Agentic Software Engineering Team for GitHub Copilot
+description: A complete set of GitHub Copilot agents, instructions, skills, and orchestration workflows that turn Copilot into an end-to-end software engineering team — brainstorming, planning, designing, building, testing, reviewing, and shipping production-grade code.
 author: Sri Satya Krishna
-ms.date: 2026-05-07
+ms.date: 2026-05-20
 ms.topic: overview
 keywords:
   - github copilot
-  - agents
-  - instructions
-  - skills
-  - prompt optimization
-estimated_reading_time: 6
+  - agentic ai
+  - software engineering team
+  - orchestration workflows
+  - fan-in fan-out parallel sequential
+  - prompt engineering
+estimated_reading_time: 8
 ---
 
 ## Overview
 
-A curated collection of GitHub Copilot customization files that transform generic AI assistance into a precision engineering partner. These files encode team standards, domain expertise, and role-specific personas so that Copilot produces production-ready output aligned with your conventions automatically.
+This repository turns GitHub Copilot into an **agentic software engineering team**. A roster of role-specialized AI agents — Product Manager, Program Manager, Architect, Developer, QA Analyst, Test Engineer, Code Reviewer, Security Engineer, DevOps Engineer, Documentation Engineer, Data Scientist, Debugger, Prompt Engineer — collaborates under a Tech Lead orchestrator to convert a free-form requirement into shippable, production-grade software.
+
+The team coordinates through **explicit orchestration workflows** (sequential, parallel, fan-out, fan-in, pipeline, iterative refinement, brainstorm → converge, orchestrator–worker, router, reflection, escalation) and a shared task-state protocol that keeps decisions, blockers, and review findings auditable from kickoff to ship.
+
+## What Makes This Different
+
+- **Whole-team coverage**: roles upstream of code (Product, Program, QA Analyst) and downstream (Reviewer, Security, DevOps, Docs) — not just a single developer persona.
+- **Explicit workflow library**: every phase names one orchestration pattern from `workflows/`. No implicit serialization, no orphan parallel branches.
+- **Shared state contract**: `TEAM_STATE` + `MISSION` blocks make every handoff complete and auditable.
+- **Brainstorm built in**: a divergent → converge workflow runs at kickoff and after blockers.
+- **Quality bar enforced**: SOLID, complexity budgets, **stated time/space complexity**, 80%+ coverage, OWASP/SANS controls, and a Production Gate before close.
+- **Feedback loops, not one-shots**: review findings route back to the owner; the loop has a budget and an escalation path.
 
 ## Repository Structure
 
 ```text
-├── .github/
-│   ├── agents/                     # Role-based AI personas with brief response contracts
-│   │   ├── architect.agent.md
-│   │   ├── code-reviewer.agent.md
-│   │   ├── data-scientist.agent.md
-│   │   ├── debugger.agent.md
-│   │   ├── developer.agent.md
-│   │   ├── devops-engineer.agent.md
-│   │   ├── documentation-engineer.agent.md
-│   │   ├── prompt-engineer.agent.md
-│   │   ├── tech-lead.agent.md
-│   │   └── test-engineer.agent.md
-│   ├── instructions/               # Always-active rule sets
-│   │   ├── coding-standards.instructions.md
-│   │   ├── docker-standards.instructions.md
-│   │   ├── parallel-execution.instructions.md
-│   │   ├── team-collaboration.instructions.md
-│   │   └── testing-standards.instructions.md
-│   └── skills/
-│       ├── engineering-team-workflow/       # Collaboration workflow skill for team-style execution
-│       ├── agentic-ai-runtime/               # Small runtime skill card
-│       ├── data-science-multimodal-runtime/  # Small runtime skill card
-│       ├── fastapi-runtime/                  # Small runtime skill card
-│       ├── mongodb-runtime/                  # Small runtime skill card
-│       ├── postgres-runtime/                 # Small runtime skill card
-│       ├── agentic-ai-patterns/              # Compact advanced Agentic AI reference
-│       ├── data-science-multimodal/          # Full reference manual
-│       ├── fastapi-patterns/                 # Full reference manual
-│       ├── mongodb-patterns/                 # Full reference manual
-│       └── postgres-patterns/                # Full reference manual
+.
+├── agents/                                # Role-based AI personas
+│   ├── product-manager.agent.md           # Product Brief: stories, ACs, non-goals
+│   ├── program-manager.agent.md           # Delivery plan, dependencies, brainstorming facilitator
+│   ├── architect.agent.md                 # ADRs, contracts, trade-offs
+│   ├── tech-lead.agent.md                 # Orchestrator + workflow selection
+│   ├── developer.agent.md                 # Production-grade implementation
+│   ├── debugger.agent.md                  # Reproduce → root-cause → verified fix
+│   ├── qa-analyst.agent.md                # Test plan + AC coverage matrix + exit criteria
+│   ├── test-engineer.agent.md             # Unit + integration test code
+│   ├── code-reviewer.agent.md             # Independent quality gate
+│   ├── security-engineer.agent.md         # STRIDE, OWASP, SANS, supply chain
+│   ├── devops-engineer.agent.md           # Docker, CI/CD, deployment
+│   ├── documentation-engineer.agent.md    # Public API + README + ADR linkage
+│   ├── data-scientist.agent.md            # RAG, multi-modal, retrieval quality
+│   └── prompt-engineer.agent.md           # Prompt determinism, token budget
+├── instructions/                          # Always-active rule sets
+│   ├── coding-standards.instructions.md   # SOLID, patterns, DSA, time complexity
+│   ├── testing-standards.instructions.md  # AAA, coverage targets, isolation
+│   ├── docker-standards.instructions.md   # Multi-stage, non-root, health checks
+│   ├── parallel-execution.instructions.md # Mandatory parallelism rules
+│   └── team-collaboration.instructions.md # Shared state, gates, anti-patterns
+├── workflows/                             # Orchestration pattern library
+│   ├── README.md                          # Pattern index + composition rules
+│   ├── sequential.workflow.md
+│   ├── parallel.workflow.md
+│   ├── fan-out.workflow.md
+│   ├── fan-in.workflow.md
+│   ├── pipeline.workflow.md
+│   ├── iterative-refinement.workflow.md
+│   ├── brainstorm-converge.workflow.md
+│   ├── orchestrator-worker.workflow.md
+│   ├── router.workflow.md
+│   ├── reflection.workflow.md
+│   └── escalation.workflow.md
+└── skills/
+    └── engineering-team-workflow/
+        └── SKILL.md                       # Team mode protocol: roles, phases, gates
 ```
+
+## The Engineering Team
+
+### Upstream — "What" and "When"
+
+| Agent | Responsibility |
+|-------|----------------|
+| **Product Manager** | Translates the raw user requirement into a Product Brief: problem, personas, prioritized user stories with Given/When/Then acceptance criteria, success metrics, non-goals. |
+| **Program Manager** | Facilitates brainstorming, builds the delivery plan, names workstreams and the integration owner, selects the orchestration workflow pattern per phase, surfaces risks. |
+
+### Design — "How"
+
+| Agent | Responsibility |
+|-------|----------------|
+| **Architect** | Produces ADRs covering decisions, structure, dependencies, and risks. Picks data structures, algorithms, and patterns appropriate to the load profile. |
+| **Data Scientist** | Owns retrieval, embeddings, multi-modal pipelines, quality floors (MRR, p@k), and latency budgets when AI/RAG is in scope. |
+
+### Build — "Make it work, make it clean, make it fast"
+
+| Agent | Responsibility |
+|-------|----------------|
+| **Developer** | Production-grade implementation honoring SOLID, complexity budgets, and stated time/space complexity on hot paths. |
+| **Debugger** | For bug work: reproduces before fixing, minimal diff, regression coverage. |
+
+### Verify — "Prove it works and is safe"
+
+| Agent | Responsibility |
+|-------|----------------|
+| **QA Analyst** | Builds the test plan, maps every AC to a test, defines exit criteria for the integration gate. |
+| **Test Engineer** | Writes unit + integration test code. 80% line coverage minimum; 90%+ on auth, payment, mutation, state-transition paths. |
+| **Code Reviewer** | Independent quality gate. Severity-ranked findings; runs validation commands as evidence. |
+| **Security Engineer** | STRIDE threat model, OWASP Top 10, SANS Top 25, secrets, supply chain, domain controls. |
+
+### Ship — "Make it deployable and documented"
+
+| Agent | Responsibility |
+|-------|----------------|
+| **DevOps Engineer** | Multi-stage Docker, CI/CD, deployment artifacts. |
+| **Documentation Engineer** | Public API docs, READMEs, ADR cross-references. |
+| **Prompt Engineer** | Optimizes prompts for determinism and token efficiency when LLM prompts are in scope. |
+
+### Coordinate — "Make the team a team"
+
+| Agent | Responsibility |
+|-------|----------------|
+| **Tech Lead** | Owns mode (fast / team), builds `TEAM_STATE` + `MISSION` for every dispatch, picks the workflow pattern, runs the integration and production gates. |
+
+## Orchestration Workflows
+
+Every phase in team mode names one workflow pattern from `workflows/`. A typical end-to-end delivery composes them:
+
+```text
+brainstorm-converge          → open the solution space, pick a direction
+   ↓ sequential               → product-manager → program-manager → architect
+   ↓ fan-out                  → developer(s) ∥ docs ∥ devops ∥ security (when independent)
+   ↓ fan-in                   → integration owner merges and validates
+   ↓ iterative-refinement     → code-reviewer ↔ developer until bar met
+   ↓ pipeline (gated)         → security → docs → devops → production gate
+```
+
+Pattern catalog:
+
+| Pattern | Topology |
+|---------|----------|
+| `sequential` | `A → B → C` |
+| `parallel` | `A_1 ∥ A_2 ∥ A_3` |
+| `fan-out` | `A → {B, C, D}` |
+| `fan-in` | `{B, C, D} → E` |
+| `pipeline` | Multi-stage with quality gates between stages |
+| `iterative-refinement` | Reviewer ↔ implementer loop with bounded budget |
+| `brainstorm-converge` | Diverge → critique → converge |
+| `orchestrator-worker` | Orchestrator discovers and dispatches N workers dynamically |
+| `router` | Classify input, dispatch to the single best specialist |
+| `reflection` | Single-agent self-critique pass |
+| `escalation` | Cheap-first; escalate to stronger specialist on blocking signal |
+
+See [workflows/README.md](workflows/README.md) for the full index, selection rules, and the contract every pattern must honor.
+
+## Shared State Contract
+
+Every handoff carries two parts. The Tech Lead builds both before invoking any specialist.
+
+```text
+TEAM_STATE:
+  TEAM_GOAL:
+  PHASE:
+  WORKFLOW: workflows/<pattern>.workflow.md
+  DECISIONS:                 # PRODUCT_BRIEF-NNN, DELIVERY_PLAN-NNN, ADR-NNN, TEST_PLAN-NNN
+  WORKSTREAMS:
+  OPEN_QUESTIONS:
+  BLOCKERS:
+  CHANGED_FILES:
+  VALIDATION:
+  REVIEW_FINDINGS:
+  NEXT_OWNER:
+  INTEGRATION_OWNER:
+
+MISSION:
+  ROLE: product-manager | program-manager | architect | developer | ... | tech-lead
+  TASK: one concrete sentence
+  TYPE: requirements | planning | feature | bug | infra | docs | data | security
+  FILES: explicit list
+  WORKFLOW: workflows/<pattern>.workflow.md
+  SKILL: one runtime skill path (or none)
+  PRIOR_OUTPUTS: structured references to upstream artifacts
+  DONE_WHEN: measurable acceptance criteria
+  CONSTRAINTS: non-negotiables
+  RETURN: brief | team-handoff
+```
+
+## Quality Bar
+
+The Production Gate (from `instructions/team-collaboration.instructions.md`) is non-optional in team mode:
+
+- Every P0 user story has at least one passing test
+- 80%+ line coverage; 90%+ on auth/payment/mutation/state-transition paths
+- Cyclomatic ≤ 10, cognitive ≤ 15, nesting ≤ 3, file ≤ 300 lines
+- **Stated time/space complexity on hot paths, verified at review**
+- No unresolved Critical or High security findings without risk-owner sign-off
+- p95 latency / error rate / throughput targets met or explicitly accepted
+- Rollback plan documented when the change is not trivially reversible
+- Observability covers the changed behavior
 
 ## How It Works
 
 ### Instructions
 
-Declarative rules that apply automatically based on file patterns. They enforce non-negotiable standards without requiring explicit prompts.
+Activate automatically based on `applyTo` file globs:
 
-* `coding-standards`: Applies to all source code and enforces SOLID principles, naming conventions, complexity ≤ 10, functions under 20 lines, and a maximum of 4 parameters.
-* `testing-standards`: Applies to test files and enforces 80% coverage minimum, AAA structure, isolation, and determinism.
-* `docker-standards`: Applies to Dockerfiles and Compose files and enforces multi-stage builds, non-root execution, health checks, and lean production images.
-* `parallel-execution`: Applies to workflows and enforces dependency-aware parallel execution across agents.
-* `team-collaboration`: Applies the shared-state, feedback-loop, and integration-gate rules needed for multi-agent delivery to behave like a software team.
-
-### Skills
-
-The skill layer is split into two tiers:
-
-* Runtime skills: Small decision cards used during normal execution with low token cost.
-* Reference skills: Full manuals with extended patterns and examples, used only when the runtime card is insufficient.
-
-Runtime skills are the default path. Reference skills are opt-in and should be loaded only when the runtime card is insufficient.
-
-Runtime skills:
-
-* **Engineering Team Workflow**: Shared state, feedback loops, rework, and integration gates for team-style execution.
-* **FastAPI Runtime**: Routes, dependencies, request and response models, middleware, and tests.
-* **PostgreSQL Runtime**: Schema updates, repositories, queries, and migrations.
-* **MongoDB Runtime**: Document modeling, repositories, aggregation, and basic indexing.
-* **Agentic AI Runtime**: Tool use, structured outputs, simple orchestration, and basic RAG.
-* **Data Science Multi-Modal Runtime**: Ingestion, chunking, embeddings, retrieval, and evaluation.
-
-Reference skills:
-
-* **FastAPI Patterns**: Deeper framework patterns and advanced examples.
-* **PostgreSQL Patterns**: Detailed indexing, migrations, pooling, and ORM guidance.
-* **MongoDB Patterns**: Advanced modeling and aggregation guidance.
-* **Agentic AI Patterns**: Compact advanced reference for architecture, orchestration, guardrails, protocol integration, memory, and evaluation.
-* **Data Science Multi-Modal**: Advanced ingestion, hybrid retrieval, and evaluation frameworks.
+- `coding-standards`: SOLID, design patterns, **data structures + algorithms + time complexity**, complexity budgets.
+- `testing-standards`: AAA, 80%+ coverage, deterministic isolation.
+- `docker-standards`: Multi-stage, non-root, health checks, distroless.
+- `parallel-execution`: Mandatory parallelism — independent work runs concurrently.
+- `team-collaboration`: Shared state, feedback loops, integration gate, production gate.
 
 ### Agents
 
-Persona-driven specialists approach problems from a specific engineering role's perspective. The Tech Lead orchestrates only when the task size justifies it.
+Invoked by name in Copilot Chat (e.g., `@tech-lead`, `@product-manager`, `@architect`). The Tech Lead is the entry point for full team-mode delivery.
 
-* **Tech Lead**: Orchestrator that uses task-size gating, delegates selectively, and parallelizes only justified branches.
-* **Architect**: System designer focused on trade-off analysis, ADRs, module boundaries, and API contracts.
-* **Developer**: Implementer focused on clean code, SOLID compliance, and production-grade changes.
-* **Test Engineer**: Quality specialist focused on coverage strategy, edge cases, and test isolation.
-* **Code Reviewer**: Quality gate focused on severity-graded findings and security review.
-* **DevOps Engineer**: Infrastructure specialist focused on Docker builds, CI/CD pipelines, and deployment assets.
-* **Documentation Engineer**: Documentation specialist focused on docstrings, README files, API docs, and architecture docs.
-* **Prompt Engineer**: AI optimization specialist focused on determinism, token reduction, and output format control.
+### Workflows
 
-## Engineering Team Mode
+Selected per phase by the Program Manager and enforced by the Tech Lead. Each pattern file documents when to use it, the topology, the data-flow contract, and failure handling.
 
-The repository supports two orchestration styles:
+### Skill
 
-* Fast mode keeps simple work lean by using one specialist and brief handoffs.
-* Team mode makes GHCP behave more like a software engineering team by adding shared task state, explicit ownership, reviewer-to-implementer feedback loops, and an integration gate.
-
-Use team mode when the task spans multiple specialties, requires parallel branches that must rejoin, or when you want agents to collaborate closely instead of acting as isolated specialists.
+`skills/engineering-team-workflow/SKILL.md` is the protocol layer: roles, phases, shared state, collaboration rules, and the Done Checklist.
 
 ## Installation: Hosting in Your Repository
 
-GitHub Copilot automatically discovers agents, instructions, and skills when they are placed inside the `.github/` folder at the root of your code repository. No configuration or plugin installs are required.
-
-### Required Folder Structure
+GitHub Copilot auto-discovers agents, instructions, and skills under `.github/` at the repo root.
 
 ```text
 your-repo/
-├── .github/
-│   ├── agents/
-│   │   ├── architect.agent.md
-│   │   ├── code-reviewer.agent.md
-│   │   ├── developer.agent.md
-│   │   ├── devops-engineer.agent.md
-│   │   ├── documentation-engineer.agent.md
-│   │   ├── prompt-engineer.agent.md
-│   │   ├── tech-lead.agent.md
-│   │   └── test-engineer.agent.md
-│   ├── instructions/
-│   │   ├── coding-standards.instructions.md
-│   │   ├── docker-standards.instructions.md
-│   │   ├── parallel-execution.instructions.md
-│   │   ├── team-collaboration.instructions.md
-│   │   └── testing-standards.instructions.md
-│   └── skills/
-│       ├── engineering-team-workflow/
-│       │   └── SKILL.md
-│       ├── fastapi-runtime/
-│       │   └── SKILL.md
-│       ├── postgres-runtime/
-│       │   └── SKILL.md
-│       ├── mongodb-runtime/
-│       │   └── SKILL.md
-│       ├── agentic-ai-runtime/
-│       │   └── SKILL.md
-│       ├── data-science-multimodal-runtime/
-│       │   └── SKILL.md
-│       ├── agentic-ai-patterns/
-│       │   └── SKILL.md
-│       ├── fastapi-patterns/
-│       │   └── SKILL.md
-│       ├── postgres-patterns/
-│       │   └── SKILL.md
-│       ├── mongodb-patterns/
-│       │   └── SKILL.md
-│       └── data-science-multimodal/
-│           └── SKILL.md
-├── src/
-└── ...
+└── .github/
+    ├── agents/                # copy from this repo's agents/
+    ├── instructions/          # copy from this repo's instructions/
+    ├── workflows/             # copy from this repo's workflows/
+    └── skills/
+        └── engineering-team-workflow/
+            └── SKILL.md       # copy from this repo's skill
 ```
 
-### How to Set Up
+Steps:
 
-1. Create a `.github/` folder at the root of your repository (if it doesn't already exist).
-2. Copy the `agents/` folder into `.github/agents/`. Each file must have the `.agent.md` extension. Copilot will detect them and make them available as invocable agents in chat (e.g., `@developer`, `@tech-lead`).
-3. Copy the `instructions/` folder into `.github/instructions/`. Each file must have the `.instructions.md` extension. Copilot loads these automatically based on the `applyTo` glob pattern in the file's YAML frontmatter — no manual invocation needed.
-4. Copy the `skills/` folder into `.github/skills/`. Each skill lives in its own subfolder and the file must be named `SKILL.md`. Use runtime skills for normal execution and keep reference skills for advanced lookups.
-5. Commit and push. Every developer who clones the repository automatically gets these customizations — no local setup required.
+1. Create `.github/` at your repository root.
+2. Copy `agents/` → `.github/agents/`. Files must end in `.agent.md`. Copilot exposes them in chat (`@developer`, `@tech-lead`, etc.).
+3. Copy `instructions/` → `.github/instructions/`. Files must end in `.instructions.md`. Copilot loads them based on each file's `applyTo` glob.
+4. Copy `workflows/` → `.github/workflows/` (or any subfolder you reference from the Tech Lead). Each pattern is a normal markdown file the orchestrator can read.
+5. Copy `skills/engineering-team-workflow/SKILL.md` → `.github/skills/engineering-team-workflow/SKILL.md`.
+6. Commit and push. Every contributor gets the team automatically.
 
-### Key Points
-
-* The `.github/` folder must be at the repository root — not nested inside `src/` or any other directory.
-* Instructions with an `applyTo` pattern (e.g., `**/*.py`) activate only when Copilot is working on files matching that pattern.
-* Agents become available in GitHub Copilot Chat and can be invoked by their filename prefix (without the `.agent.md` suffix).
-* Changes to these files take effect immediately after saving — no restart or rebuild required.
-* This works across all team members. One setup benefits everyone who uses the repository.
-
-## Performance Model
-
-The repository is optimized around fast default behavior:
-
-* Runtime skills load before reference skills
-* Agentic AI guidance is constrained to one runtime card and one compact advanced reference
-* Specialists return brief summaries by default
-* The Tech Lead uses task-size gating and can switch between fast mode and team mode
-* Parallelism is used only when dependency-free work justifies it
-* Full reference manuals are opt-in for advanced cases only
+> **Note:** if your CI already uses `.github/workflows/` for GitHub Actions, either keep the orchestration patterns under `.github/copilot-workflows/` and update path references in `tech-lead.agent.md` and the skill, or store them at the repository root (e.g., `workflows/`) as in this repo.
 
 ## Getting Started
 
-1. **Fork or clone** this repository and copy the `.github/` folder into your project root
-2. **Instructions activate automatically** based on `applyTo` file patterns
-3. **Invoke agents** by referencing them in Copilot Chat (for example `@tech-lead implement a user service` or `@tech-lead run this like a software engineering team`)
-4. **Prefer runtime skills** during normal execution and escalate to reference skills only when needed
+Start a team-mode delivery in chat:
 
-## Parallel Execution
+```text
+@tech-lead Run this like a software engineering team:
+"Build a URL shortener service with rate limiting, OAuth, and analytics."
+```
 
-The Tech Lead agent and the `parallel-execution` instruction enforce automatic parallelism:
+The Tech Lead will:
 
-* Independent modules are implemented simultaneously
-* Tests, docs, and DevOps configs run in parallel after implementation
-* Only true data dependencies (architecture → code → review) are serialized
-* Simple tasks stay single-threaded to avoid orchestration overhead
+1. Route to the **Product Manager** for a Product Brief with prioritized stories and ACs.
+2. Route to the **Program Manager** for a Delivery Plan that names workflow patterns per phase and the integration owner.
+3. Optionally run a **brainstorm → converge** pass for open design questions.
+4. Dispatch the **Architect** for an ADR.
+5. Fan out **Developer**, **DevOps**, and **Documentation Engineer** in parallel where independent.
+6. Loop **Code Reviewer** ↔ **Developer** via iterative refinement.
+7. Run the **QA Analyst** exit-criteria check.
+8. Apply the **Security Engineer** STRIDE review.
+9. Validate the **Production Gate** and close.
 
-## Collaborative Delivery
-
-When you need close collaboration, the Tech Lead can switch to team mode:
-
-* One shared task state is maintained across specialists
-* Parallel branches have a named integration owner before they start
-* Reviewer findings go back to the owning implementer instead of ending the flow
-* The task does not close until validation, review, and documentation triggers are resolved
+For simple work, the Tech Lead picks fast mode and a single specialist — no orchestration overhead.
 
 ## Customization
 
-* Add new skills by creating a folder under `skills/` with a `SKILL.md` file
-* For larger skills, create a small runtime card and keep the long manual as a separate reference skill
-* Add new instructions by creating `.instructions.md` files with `applyTo` patterns
-* Add new agents by creating `.agent.md` files with role descriptions and workflows
-* Modify complexity thresholds, coverage targets, or conventions to match your team's standards
+- Add a new agent → drop `your-role.agent.md` into `agents/`.
+- Add a new orchestration pattern → drop `your-pattern.workflow.md` into `workflows/` and reference it from `tech-lead.agent.md` and `skills/engineering-team-workflow/SKILL.md`.
+- Tighten standards → edit thresholds in `instructions/coding-standards.instructions.md` or `instructions/testing-standards.instructions.md`.
+- Add a domain skill (finance, healthcare, etc.) → create a skill folder under `skills/` and reference its path in `MISSION.SKILL`.
+
+## Design Philosophy
+
+- **Make the team explicit.** Roles, handoffs, and workflows are documented, not implicit.
+- **Default to parallel.** Independent work runs concurrently; serialization requires a true data dependency.
+- **Feedback loops, not one-shots.** Review findings route back; quality is iterated to the bar.
+- **Brief by default, deep on demand.** Specialists return concise summaries; reference skills load only when runtime cards aren't enough.
+- **Production-grade by construction.** SOLID, complexity budgets, stated complexity, coverage, security, observability, and rollback are gate conditions — not aspirations.

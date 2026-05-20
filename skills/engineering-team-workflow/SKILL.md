@@ -1,29 +1,36 @@
 ---
 name: engineering-team-workflow
-description: "Workflow guidance for coordinated multi-agent software delivery. Use for tasks that should run like a software engineering team with shared state, feedback loops, and integration gates."
+description: "Workflow guidance for coordinated multi-agent software delivery. Use for tasks that should run like a software engineering team with brainstorming, shared state, feedback loops, orchestration patterns, and integration gates."
 ---
 
 # Engineering Team Workflow
 
-Use this skill when a task should run like a software engineering team instead of a single fast-path specialist flow.
+Use this skill when a task should run like a software engineering team — not a single fast-path specialist.
 
 ## Use For
 
-* Multi-role feature delivery
-* Changes that span design, code, tests, docs, and review
+* End-to-end feature delivery from a free-form user requirement
+* Multi-role work that needs requirements → design → code → tests → review → ship
 * Parallel workstreams that need a controlled rejoin
-* Tasks where reviewer findings should flow back to the owning implementer
+* Tasks where reviewer findings must flow back to the owning implementer
 
 ## Team Roles
 
-* Tech lead owns planning, shared state, sequencing, and integration
-* Architect owns contracts, boundaries, and trade-offs when design is required
-* Developer or debugger owns implementation and direct fixes
-* Test engineer owns regression coverage and testability feedback
-* Documentation engineer owns public-facing behavior and API documentation updates
-* Code reviewer owns the independent quality gate
-* Security engineer joins when the change touches authentication, authorization, external inputs, secrets, dependencies, or a high-stakes domain
-* DevOps engineer joins only when delivery artifacts or deployment concerns are in scope
+| Role | Owns |
+|------|------|
+| Tech Lead | Orchestration, shared state, workflow selection, integration gate |
+| Product Manager | Product Brief: problem, personas, user stories, acceptance criteria, non-goals |
+| Program Manager | Delivery plan, dependency graph, brainstorming facilitation, risks, integration owner |
+| Architect | ADRs, module boundaries, contracts, trade-off analysis |
+| Developer | Production-grade implementation, complexity discipline, stated time/space cost |
+| Debugger | Reproduction, root-cause analysis, minimal verified fix |
+| QA Analyst | Test plan, AC-to-test coverage matrix, exit criteria for the integration gate |
+| Test Engineer | Unit and integration test code, coverage measurement |
+| Code Reviewer | Independent quality gate, severity-ranked findings |
+| Security Engineer | STRIDE threat model, OWASP/SANS controls, supply chain |
+| DevOps Engineer | Docker, CI/CD, deployment artifacts |
+| Documentation Engineer | Public API docs, READMEs, ADR linkage |
+| Data Scientist | RAG / multi-modal pipelines, retrieval quality, latency budgets |
 
 ## Shared State Contract
 
@@ -33,8 +40,9 @@ Maintain one shared task state and update it after every phase:
 TEAM_GOAL:
 MODE: team
 PHASE:
+WORKFLOW: workflows/<pattern>.workflow.md
 WORKSTREAMS:
-DECISIONS:
+DECISIONS:                 # PRODUCT_BRIEF-NNN, DELIVERY_PLAN-NNN, ADR-NNN, TEST_PLAN-NNN, ...
 OPEN_QUESTIONS:
 BLOCKERS:
 CHANGED_FILES:
@@ -46,29 +54,45 @@ INTEGRATION_OWNER:
 
 ## Phase Model
 
-1. Align on scope, ownership, dependencies, and the integration owner.
-2. Run architecture only if the task needs new contracts, boundaries, or trade-off decisions.
-3. Implement the required workstreams.
-4. Run tests, docs, and DevOps in parallel when they are unblocked.
-5. Send review findings back to the owning implementer until the major issues are resolved.
-6. Rejoin the branches, validate the integrated result, and close with explicit remaining risks.
+1. **Brainstorm & Clarify** — Product Manager produces the Product Brief; Program Manager runs `workflows/brainstorm-converge.workflow.md` when the solution space is open.
+2. **Plan** — Program Manager produces the Delivery Plan: workstreams, dependency graph, orchestration patterns per phase, integration owner, top risks.
+3. **Design** — Architect produces ADRs when contracts, boundaries, or trade-offs are required. Skip for localized changes.
+4. **Implement** — Developer (or Debugger for bug work) implements the scoped change. Multiple modules run via `workflows/parallel.workflow.md` or `workflows/orchestrator-worker.workflow.md`.
+5. **Test** — QA Analyst defines the test plan; Test Engineer writes the tests. Run via `workflows/fan-out.workflow.md` alongside docs/devops/security when independent.
+6. **Review** — Code Reviewer and Security Engineer apply `workflows/iterative-refinement.workflow.md`. Findings route back to the owning agent until the bar is met.
+7. **Integrate & Ship** — Tech Lead runs the integration gate via `workflows/fan-in.workflow.md`, validates the production gate, closes the task.
+
+## Orchestration Pattern Library
+
+Every phase selects one pattern from `workflows/`. See `workflows/README.md` for the full index:
+
+- Sequential, Parallel, Fan-Out, Fan-In
+- Pipeline (gated stages)
+- Iterative Refinement (review loops)
+- Brainstorm → Converge
+- Orchestrator–Worker (dynamic decomposition)
+- Router (classify and dispatch)
+- Reflection (self-critique)
+- Escalation (cheap-first, strong-on-block)
 
 ## Collaboration Rules
 
-* Every handoff carries two parts: the full current TEAM_STATE and a MISSION block specific to the receiving specialist. Specialists must not be invoked with incomplete state.
-* MISSION.PRIOR_OUTPUTS carries the structured outputs of completed phases — specialists consume these to avoid re-deriving decisions already made upstream
-* Parallel branches must produce outputs that can be merged by the named integration owner
-* Reviewer findings must become actionable TEAM_STATE.REVIEW_FINDINGS entries with an owning agent, not passive commentary
-* Do not skip documentation or validation when their trigger conditions are met
-* Do not close the task while blockers, unresolved review findings, or missing validations remain hidden
+* Every handoff carries two parts: the full current `TEAM_STATE` and a `MISSION` block specific to the receiving specialist. Specialists must not be invoked with incomplete state.
+* `MISSION.WORKFLOW` names the orchestration pattern this dispatch is part of.
+* `MISSION.PRIOR_OUTPUTS` carries structured outputs of completed phases — specialists consume these to avoid re-deriving decisions already made upstream.
+* Parallel branches MUST produce outputs that can be merged by the named integration owner.
+* Reviewer findings MUST become actionable `TEAM_STATE.REVIEW_FINDINGS` entries with an owning agent, not passive commentary.
+* Do not skip the QA Analyst's exit-criteria check when ACs exist in the Product Brief.
+* Do not close the task while blockers, unresolved review findings, or missing validations remain hidden.
 
 ## Done Checklist
 
-* Scope is complete
-* Changed files are accounted for
-* Validation status is explicit (tests pass, coverage targets met)
-* Review status is explicit
-* Security review status is explicit when security engineer was in scope; no unresolved Critical or High findings without risk-owner sign-off
+* Every P0 user story in the Product Brief has at least one passing test
+* Changed files are accounted for in `CHANGED_FILES`
+* Validation is explicit (tests pass, coverage targets met, complexity within budget)
+* Stated time/space complexity verified for hot paths
+* Review status is explicit; no open Critical or Major findings
+* Security review status is explicit; no unresolved Critical or High findings without risk-owner sign-off
 * Documentation impact is explicit
 * SLO targets (p95 latency, error rate, throughput) are confirmed met or explicitly accepted as out of scope
 * Rollback plan is documented when the change is not trivially reversible
