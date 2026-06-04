@@ -23,7 +23,7 @@ The team coordinates through **explicit orchestration workflows** (sequential, p
 ## What Makes This Different
 
 - **Whole-team coverage**: roles upstream of code (Product, Program, QA Analyst) and downstream (Reviewer, Security, DevOps, Docs) — not just a single developer persona.
-- **Explicit workflow library**: every phase names one orchestration pattern from `workflows/`. No implicit serialization, no orphan parallel branches.
+- **Explicit workflow library**: every phase names one orchestration pattern from `copilot-workflows/`. No implicit serialization, no orphan parallel branches.
 - **Shared state contract**: `TEAM_STATE` + `MISSION` blocks make every handoff complete and auditable.
 - **Brainstorm built in**: a divergent → converge workflow runs at kickoff and after blockers.
 - **Quality bar enforced**: SOLID, complexity budgets, **stated time/space complexity**, 80%+ coverage, OWASP/SANS controls, and a Production Gate before close.
@@ -57,7 +57,7 @@ The team coordinates through **explicit orchestration workflows** (sequential, p
 │   ├── docker-standards.instructions.md   # Multi-stage, non-root, health checks
 │   ├── parallel-execution.instructions.md # Mandatory parallelism rules
 │   └── team-collaboration.instructions.md # Shared state, gates, conflict resolution, voice, persistent memory
-├── workflows/                             # Orchestration pattern library
+├── copilot-workflows/                             # Orchestration pattern library
 │   ├── README.md                          # Pattern index + composition rules
 │   ├── sequential.workflow.md
 │   ├── parallel.workflow.md
@@ -127,7 +127,7 @@ The team coordinates through **explicit orchestration workflows** (sequential, p
 
 ## Orchestration Workflows
 
-Every phase in team mode names one workflow pattern from `workflows/`. A typical end-to-end delivery composes them:
+Every phase in team mode names one workflow pattern from `copilot-workflows/`. A typical end-to-end delivery composes them:
 
 ```text
 brainstorm-converge          → open the solution space, pick a direction
@@ -158,7 +158,7 @@ Pattern catalog:
 | `pairing` | Driver ↔ navigator on high-stakes scope |
 | `retro` | Capture durable lessons after a delivery or blocker |
 
-See [workflows/README.md](workflows/README.md) for the full index, selection rules, and the contract every pattern must honor.
+See [copilot-workflows/README.md](copilot-workflows/README.md) for the full index, selection rules, and the contract every pattern must honor.
 
 ## Shared State Contract
 
@@ -168,7 +168,7 @@ Every handoff carries two parts. The Tech Lead builds both before invoking any s
 TEAM_STATE:
   TEAM_GOAL:
   PHASE:
-  WORKFLOW: workflows/<pattern>.workflow.md
+  WORKFLOW: copilot-workflows/<pattern>.workflow.md
   DECISIONS:                 # PRODUCT_BRIEF-NNN, DELIVERY_PLAN-NNN, ADR-NNN, TEST_PLAN-NNN
   WORKSTREAMS:
   OPEN_QUESTIONS:
@@ -184,7 +184,7 @@ MISSION:
   TASK: one concrete sentence
   TYPE: requirements | planning | feature | bug | infra | docs | data | security
   FILES: explicit list
-  WORKFLOW: workflows/<pattern>.workflow.md
+  WORKFLOW: copilot-workflows/<pattern>.workflow.md
   SKILL: one runtime skill path (or none)
   PRIOR_OUTPUTS: structured references to upstream artifacts
   DONE_WHEN: measurable acceptance criteria
@@ -238,7 +238,7 @@ your-repo/
 └── .github/
     ├── agents/                # copy from this repo's agents/
     ├── instructions/          # copy from this repo's instructions/
-    ├── workflows/             # copy from this repo's workflows/
+    ├── copilot-workflows/             # copy from this repo's copilot-workflows/
     └── skills/
         └── engineering-team-workflow/
             └── SKILL.md       # copy from this repo's skill
@@ -249,11 +249,11 @@ Steps:
 1. Create `.github/` at your repository root.
 2. Copy `agents/` → `.github/agents/`. Files must end in `.agent.md`. Copilot exposes them in chat (`@developer`, `@tech-lead`, etc.).
 3. Copy `instructions/` → `.github/instructions/`. Files must end in `.instructions.md`. Copilot loads them based on each file's `applyTo` glob.
-4. Copy `workflows/` → `.github/workflows/` (or any subfolder you reference from the Tech Lead). Each pattern is a normal markdown file the orchestrator can read.
+4. Copy `copilot-workflows/` → `.github/copilot-workflows/` (or any subfolder you reference from the Tech Lead). Each pattern is a normal markdown file the orchestrator can read.
 5. Copy `skills/engineering-team-workflow/SKILL.md` → `.github/skills/engineering-team-workflow/SKILL.md`.
 6. Commit and push. Every contributor gets the team automatically.
 
-> **Note:** if your CI already uses `.github/workflows/` for GitHub Actions, either keep the orchestration patterns under `.github/copilot-workflows/` and update path references in `tech-lead.agent.md` and the skill, or store them at the repository root (e.g., `workflows/`) as in this repo.
+> **Note:** if your CI already uses `.github/copilot-workflows/` for GitHub Actions, either keep the orchestration patterns under `.github/copilot-copilot-workflows/` and update path references in `tech-lead.agent.md` and the skill, or store them at the repository root (e.g., `copilot-workflows/`) as in this repo.
 
 ## Getting Started
 
@@ -286,7 +286,7 @@ For simple work, the Tech Lead picks fast mode and a single specialist — no or
 ## Customization
 
 - Add a new agent → drop `your-role.agent.md` into `agents/`.
-- Add a new orchestration pattern → drop `your-pattern.workflow.md` into `workflows/` and reference it from `tech-lead.agent.md` and `skills/engineering-team-workflow/SKILL.md`.
+- Add a new orchestration pattern → drop `your-pattern.workflow.md` into `copilot-workflows/` and reference it from `tech-lead.agent.md` and `skills/engineering-team-workflow/SKILL.md`.
 - Tighten standards → edit thresholds in `instructions/coding-standards.instructions.md` or `instructions/testing-standards.instructions.md`.
 - Add a domain skill (finance, healthcare, etc.) → create a skill folder under `skills/` and reference its path in `MISSION.SKILL`.
 

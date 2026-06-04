@@ -109,9 +109,9 @@ Three-step protocol for any intra-team disagreement (e.g., architect vs develope
 2. **Tech Lead arbitrates.** The Tech Lead picks exactly one of:
 
    * Re-dispatch with revised `MISSION` that resolves the ambiguity from a fact already in `TEAM_STATE.DECISIONS`.
-   * Run `workflows/design-review.workflow.md` if the disagreement is design-level and other specialists' input would help.
-   * Run `workflows/pairing.workflow.md` if the disagreement requires both lanes' expertise in real time.
-   * Escalate via `workflows/escalation.workflow.md` to a stronger specialist or back to the user with a crisp framing.
+   * Run `copilot-workflows/design-review.workflow.md` if the disagreement is design-level and other specialists' input would help.
+   * Run `copilot-workflows/pairing.workflow.md` if the disagreement requires both lanes' expertise in real time.
+   * Escalate via `copilot-workflows/escalation.workflow.md` to a stronger specialist or back to the user with a crisp framing.
 
 3. **Record the outcome.** Whichever path wins, the resolved position becomes a new `DECISIONS` entry. The losing position is preserved in `OPEN_QUESTIONS` archive with a one-line rationale for why it was not chosen. This is what makes the team learn.
 
@@ -130,7 +130,7 @@ When the user opts in (by saying "remember this for the team", "log this", or by
 - [YYYY-MM-DD] ADR-NNN — <one-line decision> — links to: <file>
 
 ## Retros
-- [YYYY-MM-DD] <task name> — see `workflows/retro.workflow.md` for the format
+- [YYYY-MM-DD] <task name> — see `copilot-workflows/retro.workflow.md` for the format
 
 ## Recurring Risks
 - <risk> — first observed <date> — mitigation: <one line>

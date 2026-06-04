@@ -40,7 +40,7 @@ Maintain one shared task state and update it after every phase:
 TEAM_GOAL:
 MODE: team
 PHASE:
-WORKFLOW: workflows/<pattern>.workflow.md
+WORKFLOW: copilot-workflows/<pattern>.workflow.md
 WORKSTREAMS:
 DECISIONS:                 # PRODUCT_BRIEF-NNN, DELIVERY_PLAN-NNN, ADR-NNN, TEST_PLAN-NNN, ...
 OPEN_QUESTIONS:
@@ -54,17 +54,17 @@ INTEGRATION_OWNER:
 
 ## Phase Model
 
-1. **Brainstorm & Clarify** — Product Manager produces the Product Brief; Program Manager runs `workflows/brainstorm-converge.workflow.md` when the solution space is open.
+1. **Brainstorm & Clarify** — Product Manager produces the Product Brief; Program Manager runs `copilot-workflows/brainstorm-converge.workflow.md` when the solution space is open.
 2. **Plan** — Program Manager produces the Delivery Plan: workstreams, dependency graph, orchestration patterns per phase, integration owner, top risks.
 3. **Design** — Architect produces ADRs when contracts, boundaries, or trade-offs are required. Skip for localized changes.
-4. **Implement** — Developer (or Debugger for bug work) implements the scoped change. Multiple modules run via `workflows/parallel.workflow.md` or `workflows/orchestrator-worker.workflow.md`.
-5. **Test** — QA Analyst defines the test plan; Test Engineer writes the tests. Run via `workflows/fan-out.workflow.md` alongside docs/devops/security when independent.
-6. **Review** — Code Reviewer and Security Engineer apply `workflows/iterative-refinement.workflow.md`. Findings route back to the owning agent until the bar is met.
-7. **Integrate & Ship** — Tech Lead runs the integration gate via `workflows/fan-in.workflow.md`, validates the production gate, closes the task.
+4. **Implement** — Developer (or Debugger for bug work) implements the scoped change. Multiple modules run via `copilot-workflows/parallel.workflow.md` or `copilot-workflows/orchestrator-worker.workflow.md`.
+5. **Test** — QA Analyst defines the test plan; Test Engineer writes the tests. Run via `copilot-workflows/fan-out.workflow.md` alongside docs/devops/security when independent.
+6. **Review** — Code Reviewer and Security Engineer apply `copilot-workflows/iterative-refinement.workflow.md`. Findings route back to the owning agent until the bar is met.
+7. **Integrate & Ship** — Tech Lead runs the integration gate via `copilot-workflows/fan-in.workflow.md`, validates the production gate, closes the task.
 
 ## Orchestration Pattern Library
 
-Every phase selects one pattern from `workflows/`. See `workflows/README.md` for the full index:
+Every phase selects one pattern from `copilot-workflows/`. See `copilot-workflows/README.md` for the full index:
 
 - Sequential, Parallel, Fan-Out, Fan-In
 - Pipeline (gated stages)

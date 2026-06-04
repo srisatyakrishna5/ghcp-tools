@@ -46,7 +46,7 @@ Full roster and protocol: see [`AGENTS.md`](../AGENTS.md) and [`skills/engineeri
 The team is not a relay race — it's a **closely-coordinated unit** with explicit norms:
 
 1. **Shared state** — every handoff carries the full `TEAM_STATE` plus a per-specialist `MISSION` block. See [`instructions/team-collaboration.instructions.md`](../instructions/team-collaboration.instructions.md).
-2. **Named workflow per phase** — every phase selects one orchestration pattern from [`workflows/`](../workflows/). No implicit serialization, no orphan parallel branches.
+2. **Named workflow per phase** — every phase selects one orchestration pattern from [`copilot-workflows/`](../copilot-workflows/). No implicit serialization, no orphan parallel branches.
 3. **Auto-chain on clear next steps** — the Tech Lead dispatches the next owner immediately when `NEXT_OWNER` is unambiguous, instead of waiting for the user to click. The user can interrupt at any time.
 4. **Findings route back to the owner** — reviewers do not become implementers; the implementer fixes their own findings.
 5. **Conflict resolution is structured** — peer disagreements (e.g., architect vs developer) are surfaced explicitly and arbitrated by the Tech Lead, not absorbed silently.

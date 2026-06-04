@@ -40,16 +40,16 @@ Every handoff carries two parts: the full current `TEAM_STATE` (decisions, block
 
 ### 2. Named workflow per phase
 
-Every phase selects exactly one pattern from [`workflows/`](workflows/). Patterns are contracts the Tech Lead enforces. See [`workflows/README.md`](workflows/README.md).
+Every phase selects exactly one pattern from [`copilot-workflows/`](copilot-workflows/). Patterns are contracts the Tech Lead enforces. See [`copilot-workflows/README.md`](copilot-workflows/README.md).
 
 ### 3. Team rituals (not just relay handoffs)
 
 Real teams sync, design together, learn from misses, and pair when stakes are high. Use these workflows the same way you'd use a calendar:
 
-- **[`workflows/standup.workflow.md`](workflows/standup.workflow.md)** — quick cross-stream sync during long deliveries: what each stream did, what's next, what's blocked.
-- **[`workflows/design-review.workflow.md`](workflows/design-review.workflow.md)** — structured cross-discipline walkthrough of an ADR before implementation locks in.
-- **[`workflows/retro.workflow.md`](workflows/retro.workflow.md)** — after a delivery, blocker, or incident: what worked, what didn't, lessons captured in the team log.
-- **[`workflows/pairing.workflow.md`](workflows/pairing.workflow.md)** — two specialists working in lockstep (architect ↔ developer for new contracts; security ↔ developer for auth flows; qa-analyst ↔ test-engineer on coverage).
+- **[`copilot-workflows/standup.workflow.md`](copilot-workflows/standup.workflow.md)** — quick cross-stream sync during long deliveries: what each stream did, what's next, what's blocked.
+- **[`copilot-workflows/design-review.workflow.md`](copilot-workflows/design-review.workflow.md)** — structured cross-discipline walkthrough of an ADR before implementation locks in.
+- **[`copilot-workflows/retro.workflow.md`](copilot-workflows/retro.workflow.md)** — after a delivery, blocker, or incident: what worked, what didn't, lessons captured in the team log.
+- **[`copilot-workflows/pairing.workflow.md`](copilot-workflows/pairing.workflow.md)** — two specialists working in lockstep (architect ↔ developer for new contracts; security ↔ developer for auth flows; qa-analyst ↔ test-engineer on coverage).
 
 ### 4. Auto-chained handoffs
 
@@ -60,7 +60,7 @@ When a specialist returns `NEXT_OWNER` and the next step is unambiguous, the Tec
 Disagreement is healthy and explicit:
 
 - A specialist who disagrees with an upstream decision **must** record it in `TEAM_STATE.OPEN_QUESTIONS` with `disagreement: <role> ↔ <role>` and a one-line rationale. Silent override is an anti-pattern.
-- The Tech Lead arbitrates: re-dispatch with revised `MISSION`, run `workflows/design-review.workflow.md`, or escalate via `workflows/escalation.workflow.md`.
+- The Tech Lead arbitrates: re-dispatch with revised `MISSION`, run `copilot-workflows/design-review.workflow.md`, or escalate via `copilot-workflows/escalation.workflow.md`.
 - Reviewers (code, security) do **not** become implementers. Findings route back to the owning agent.
 
 ### 6. Persistent team memory
@@ -95,5 +95,5 @@ If an agent cannot meet a standard, it says so explicitly. Silent bar-lowering i
 - [`README.md`](README.md) — repository overview and full team philosophy
 - [`skills/engineering-team-workflow/SKILL.md`](skills/engineering-team-workflow/SKILL.md) — the protocol-of-record for team mode (phases, gates, done checklist)
 - [`instructions/team-collaboration.instructions.md`](instructions/team-collaboration.instructions.md) — collaboration rules, conflict resolution, persistent memory, voice
-- [`workflows/README.md`](workflows/README.md) — every orchestration pattern with selection rules
+- [`copilot-workflows/README.md`](copilot-workflows/README.md) — every orchestration pattern with selection rules
 - [`agents/tech-lead.agent.md`](agents/tech-lead.agent.md) — orchestration entry point

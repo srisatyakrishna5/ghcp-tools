@@ -59,7 +59,7 @@ The Tech Lead picks the smallest reviewer set that covers the triggers. Inviting
 
 ## Iteration Budget
 
-- Max 2 review rounds. After that, the Tech Lead either accepts with documented risk, escalates to the user, or runs `workflows/brainstorm-converge.workflow.md` to reopen the solution space.
+- Max 2 review rounds. After that, the Tech Lead either accepts with documented risk, escalates to the user, or runs `copilot-workflows/brainstorm-converge.workflow.md` to reopen the solution space.
 
 ## Canonical Example
 
