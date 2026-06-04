@@ -20,6 +20,17 @@ The Program Manager selects a pattern per phase and names it in the Delivery Pla
 | [reflection.workflow.md](reflection.workflow.md) | Agent critiques and improves its own output | A → A' → A'' |
 | [escalation.workflow.md](escalation.workflow.md) | Lower-cost agent escalates only when blocked | Cheap → Strong (on signal) |
 
+### Team Rituals
+
+Patterns that make the team feel like a team — not a relay race. Use these during long deliveries or after notable events.
+
+| Pattern | When to use | Topology |
+|---------|-------------|----------|
+| [standup.workflow.md](standup.workflow.md) | Long delivery with multiple active workstreams — quick cross-stream sync | {WS owners} → tech-lead (synthesize) |
+| [design-review.workflow.md](design-review.workflow.md) | An ADR or contract should be vetted by downstream specialists before lock-in | architect → {dev, sec, qa, devops, data-sci} → tech-lead |
+| [pairing.workflow.md](pairing.workflow.md) | High-stakes change where two specialists must work in lockstep | driver ↔ navigator → single joint handoff |
+| [retro.workflow.md](retro.workflow.md) | Post-delivery, post-blocker, or post-incident learning capture | all participating roles → tech-lead → `.copilot-team/team-log.md` |
+
 ## Composition
 
 Patterns compose. A typical end-to-end delivery looks like:
@@ -40,6 +51,7 @@ brainstorm-converge → sequential (Product → Architect)
 4. Use **brainstorm-converge** only at kickoff or when an architectural decision is genuinely open.
 5. Use **orchestrator-worker** when the work breakdown is data-driven (e.g., "implement one file per entity in the schema").
 6. Never launch a parallel pattern without a named **integration owner** and a defined **merge condition**.
+7. **Use team rituals when the team would benefit from a sync, not just another handoff** — run `standup` during long multi-stream deliveries, `design-review` before locking a contract, `pairing` when stakes are high and the review loop would be expensive, `retro` after closing the task or resolving a notable blocker.
 
 ## Contract Every Pattern Must Honor
 

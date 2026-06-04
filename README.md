@@ -33,6 +33,9 @@ The team coordinates through **explicit orchestration workflows** (sequential, p
 
 ```text
 .
+├── AGENTS.md                              # Root team entry doc (humans + Copilot)
+├── .github/
+│   └── copilot-instructions.md            # Auto-routes engineering work to @tech-lead
 ├── agents/                                # Role-based AI personas
 │   ├── product-manager.agent.md           # Product Brief: stories, ACs, non-goals
 │   ├── program-manager.agent.md           # Delivery plan, dependencies, brainstorming facilitator
@@ -53,7 +56,7 @@ The team coordinates through **explicit orchestration workflows** (sequential, p
 │   ├── testing-standards.instructions.md  # AAA, coverage targets, isolation
 │   ├── docker-standards.instructions.md   # Multi-stage, non-root, health checks
 │   ├── parallel-execution.instructions.md # Mandatory parallelism rules
-│   └── team-collaboration.instructions.md # Shared state, gates, anti-patterns
+│   └── team-collaboration.instructions.md # Shared state, gates, conflict resolution, voice, persistent memory
 ├── workflows/                             # Orchestration pattern library
 │   ├── README.md                          # Pattern index + composition rules
 │   ├── sequential.workflow.md
@@ -66,7 +69,11 @@ The team coordinates through **explicit orchestration workflows** (sequential, p
 │   ├── orchestrator-worker.workflow.md
 │   ├── router.workflow.md
 │   ├── reflection.workflow.md
-│   └── escalation.workflow.md
+│   ├── escalation.workflow.md
+│   ├── standup.workflow.md                # Team ritual — cross-stream sync
+│   ├── design-review.workflow.md          # Team ritual — vet ADR before lock-in
+│   ├── pairing.workflow.md                # Team ritual — driver ↔ navigator on high-stakes scope
+│   └── retro.workflow.md                  # Team ritual — durable lessons → .copilot-team/team-log.md
 └── skills/
     └── engineering-team-workflow/
         └── SKILL.md                       # Team mode protocol: roles, phases, gates
@@ -146,6 +153,10 @@ Pattern catalog:
 | `router` | Classify input, dispatch to the single best specialist |
 | `reflection` | Single-agent self-critique pass |
 | `escalation` | Cheap-first; escalate to stronger specialist on blocking signal |
+| `standup` | Cross-stream sync during long deliveries |
+| `design-review` | Vet an ADR/contract with downstream specialists before lock-in |
+| `pairing` | Driver ↔ navigator on high-stakes scope |
+| `retro` | Capture durable lessons after a delivery or blocker |
 
 See [workflows/README.md](workflows/README.md) for the full index, selection rules, and the contract every pattern must honor.
 
@@ -245,6 +256,11 @@ Steps:
 > **Note:** if your CI already uses `.github/workflows/` for GitHub Actions, either keep the orchestration patterns under `.github/copilot-workflows/` and update path references in `tech-lead.agent.md` and the skill, or store them at the repository root (e.g., `workflows/`) as in this repo.
 
 ## Getting Started
+
+The repository is **auto-discoverable by GitHub Copilot**:
+
+* `.github/copilot-instructions.md` tells the default Copilot to route non-trivial software engineering requests through `@tech-lead`.
+* `AGENTS.md` is the root entry doc — the "meet the team" page that both humans and Copilot read first.
 
 Start a team-mode delivery in chat:
 
